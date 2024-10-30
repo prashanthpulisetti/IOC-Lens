@@ -29,14 +29,20 @@ export class IocLensSettingTab extends PluginSettingTab {
             .setName('Enabled Search Engines')
             .setHeading();
         defaultSites.forEach((site: searchSite) => {
+        		const settingSite = this.plugin.settings.searchSites.find(obj => obj.name === site.name);
+        		const enabled = settingSite?.enabled ?? site.enabled;	
             new Setting(containerEl)
                 .setName(site.name)
                 .setDesc(site.description ? site.description : "")
                 .addToggle(toggle => toggle
-                    .setValue(this.plugin.settings.searchSites[this.plugin.settings.searchSites.indexOf(site)].enabled)
+                    .setValue(enabled)
                     .onChange(async (value) => {
-                        this.plugin.settings.searchSites[this.plugin.settings.searchSites.indexOf(site)].enabled = value;
-                        this.plugin.settings.searchSites[this.plugin.settings.searchSites.indexOf(site)].site = site.site;
+                    		const index = this.plugin.settings.searchSites.findIndex(obj => obj.name === site.name);
+                    		if (index >= 0) {
+                    			this.plugin.settings.searchSites[index] = {...site, enabled: value};
+                    		} else {
+                    			this.plugin.settings.searchSites.push({...site, enabled: value});
+                    		}
                         await this.plugin.saveSettings();
                     })
                 )
