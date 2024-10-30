@@ -1,13 +1,12 @@
 import { ItemView, TAbstractFile, TFile, WorkspaceLeaf } from "obsidian";
 import { CyberPlugin, DOMAIN_REGEX, extractMatches, HASH_REGEX, IP_REGEX, IPv6_REGEX, isLocalIpv4, type ParsedIndicators, refangIoc, removeArrayDuplicates, type searchSite, validateDomains } from "obsidian-cyber-utils";
-import { mount, unmount, type Component } from 'svelte';
 
 import Sidebar from "./components/Sidebar.svelte";
 
 export const DEFAULT_VIEW_TYPE = "ioc-lens-view";
 
 export class IndicatorSidebar extends ItemView {
-    sidebar: Component | undefined;
+    sidebar: Sidebar | undefined;
     sidebarProps: {indicators: ParsedIndicators[]};
     iocs: ParsedIndicators[] | undefined;
     plugin: CyberPlugin | undefined;
@@ -24,12 +23,12 @@ export class IndicatorSidebar extends ItemView {
     
     constructor(leaf: WorkspaceLeaf, plugin: CyberPlugin) {
         super(leaf);
-        this.registerActiveFileListener();
-        this.registerOpenFile();
         this.iocs = [];
         this.plugin = plugin;
         this.splitLocalIp = true;
         this.icon = 'scan-eye';
+        this.registerActiveFileListener();
+        this.registerOpenFile();
     }
 
     getViewType(): string {
@@ -151,19 +150,24 @@ export class IndicatorSidebar extends ItemView {
     async parseIndicators(file: TFile) {
         await this.getMatches(file);
         if (!this.sidebar && this.iocs) {
-            this.sidebar = mount(Sidebar, {target: this.contentEl, props: {indicators: this.iocs}});
-        } else if (this.sidebar) {
-            console.log('updating')
-            console.log(this.sidebar.props)
-            this.sidebar.props.indicators = this.iocs;
+            this.sidebar = new Sidebar({
+                target: this.contentEl,
+                props: {
+                    indicators: this.iocs
+                }
+            });
+        } else {
+            this.sidebar?.$set({
+                indicators: this.iocs
+            });
         }
     }
 
     async onClose() {
         if (this.sidebar) {
-           unmount(this.sidebar);
-           this.sidebar = undefined;
-           this.plugin?.sidebarContainers?.delete(this.getViewType());
+            this.sidebar.$destroy();
+            this.sidebar = undefined;
+            this.plugin?.sidebarContainers?.delete(this.getViewType());
         }
     }
 }

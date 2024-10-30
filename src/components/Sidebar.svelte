@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { ParsedIndicators } from "obsidian-cyber-utils";
     import IocList from './IocList.svelte'
-    //let indicators: ParsedIndicators[] = [];
-    let {indicators = [] as ParsedIndicators[]} = $props();
+    
+    export let indicators: ParsedIndicators[];
 </script>
 
 <h4>Extracted Indicators</h4>
