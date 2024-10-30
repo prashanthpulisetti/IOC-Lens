@@ -2,7 +2,7 @@ import { WorkspaceLeaf } from 'obsidian';
 import { CyberPlugin } from 'obsidian-cyber-utils';
 
 import { IOC_LENS_DEFAULT_SETTINGS, type IocLensSettings, IocLensSettingTab } from 'src/settings';
-import { DEFAULT_VIEW_TYPE, IndicatorSidebar } from 'src/iocLensView';
+import { DEFAULT_VIEW_TYPE, IndicatorSidebar } from 'src/iocLensView.svelte';
 
 // Remember to rename these classes and interfaces!
 

@@ -22,7 +22,7 @@
 		"obsidian": "latest",
 		"obsidian-cyber-utils": "0.8.1",
 		"obsidian-svelte-components": "0.4.6",
-		"svelte": "^5.1.4",
+		"svelte": "4.2.19",
 		"svelte-preprocess": "^6.0.3",
 		"tslib": "2.4.0",
 		"typescript": "^5"

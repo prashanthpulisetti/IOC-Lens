@@ -42,6 +42,7 @@ const context = await esbuild.context({
 	outfile: "main.js",
 	plugins: [
 		esbuildSvelte({
+			entryPoints: ['src/iocLensView.svelte.ts'],
 			compilerOptions: { css: "injected" },
 			preprocess: sveltePreprocess()
 		})
