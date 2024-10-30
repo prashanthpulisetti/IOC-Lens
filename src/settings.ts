@@ -1,6 +1,8 @@
 import IocLens from "main";
 import { App, PluginSettingTab, Setting } from "obsidian";
-import { type CyberPluginSettings, defaultSites, type searchSite } from "obsidian-cyber-utils";
+import { type CyberPluginSettings } from "obsidian-cyber-utils";
+
+import { defaultSites, type searchSite } from "./sites";
 
 export interface IocLensSettings extends CyberPluginSettings {
 }
@@ -26,13 +28,15 @@ export class IocLensSettingTab extends PluginSettingTab {
 		new Setting(containerEl)
             .setName('Enabled Search Engines')
             .setHeading();
-        this.plugin.settings.searchSites.forEach((site: searchSite) => {
+        defaultSites.forEach((site: searchSite) => {
             new Setting(containerEl)
                 .setName(site.name)
+                .setDesc(site.description ? site.description : "")
                 .addToggle(toggle => toggle
                     .setValue(this.plugin.settings.searchSites[this.plugin.settings.searchSites.indexOf(site)].enabled)
                     .onChange(async (value) => {
                         this.plugin.settings.searchSites[this.plugin.settings.searchSites.indexOf(site)].enabled = value;
+                        this.plugin.settings.searchSites[this.plugin.settings.searchSites.indexOf(site)].site = site.site;
                         await this.plugin.saveSettings();
                     })
                 )
