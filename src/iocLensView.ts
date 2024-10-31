@@ -1,7 +1,8 @@
 import { ItemView, TAbstractFile, TFile, WorkspaceLeaf } from "obsidian";
-import { CyberPlugin, DOMAIN_REGEX, extractMatches, HASH_REGEX, IP_REGEX, IPv6_REGEX, isLocalIpv4, type ParsedIndicators, refangIoc, removeArrayDuplicates, type searchSite, validateDomains } from "obsidian-cyber-utils";
+import { DOMAIN_REGEX, extractMatches, IP_REGEX, IPv6_REGEX, isLocalIpv4, MD5_REGEX, type ParsedIndicators, refangIoc, removeArrayDuplicates, type searchSite, SHA256_REGEX, validateDomains } from "obsidian-cyber-utils";
 
 import Sidebar from "./components/Sidebar.svelte";
+import type IocLens from "main";
 
 export const DEFAULT_VIEW_TYPE = "ioc-lens-view";
 
@@ -9,7 +10,7 @@ export class IndicatorSidebar extends ItemView {
     sidebar: Sidebar | undefined;
     sidebarProps: {indicators: ParsedIndicators[]};
     iocs: ParsedIndicators[] | undefined;
-    plugin: CyberPlugin | undefined;
+    plugin: IocLens | undefined;
     splitLocalIp: boolean;
 
     ipExclusions: string[] | undefined;
@@ -17,11 +18,12 @@ export class IndicatorSidebar extends ItemView {
     hashExclusions: string[] | undefined;
     
     ipRegex = IP_REGEX;
-    hashRegex = HASH_REGEX;
+    sha256Regex = SHA256_REGEX;
+    md5Regex = MD5_REGEX;
     domainRegex = DOMAIN_REGEX;
     ipv6Regex = IPv6_REGEX;
     
-    constructor(leaf: WorkspaceLeaf, plugin: CyberPlugin) {
+    constructor(leaf: WorkspaceLeaf, plugin: IocLens) {
         super(leaf);
         this.iocs = [];
         this.plugin = plugin;
@@ -83,10 +85,21 @@ export class IndicatorSidebar extends ItemView {
             items: extractMatches(fileContent, this.domainRegex),
             sites: this.plugin?.settings?.searchSites.filter((x: searchSite) => x.enabled && x.domain)
         }
-        const hashes: ParsedIndicators = {
-            title: "Hashes",
-            items: extractMatches(fileContent, this.hashRegex),
-            sites: this.plugin?.settings?.searchSites.filter((x: searchSite) => x.enabled && x.hash)
+        let sha256Hashes: ParsedIndicators | null = null;
+        let md5Hashes: ParsedIndicators | null = null;
+        if (this.plugin.settings.sha256Enabled) {
+            sha256Hashes = {
+                title: "Hashes (SHA256)",
+                items: extractMatches(fileContent, this.sha256Regex),
+                sites: this.plugin?.settings?.searchSites.filter((x: searchSite) => x.enabled && x.hash)
+            }
+        }
+        if (this.plugin.settings.md5Enabled) {
+            md5Hashes = {
+                title: "Hashes (MD5)",
+                items: extractMatches(fileContent, this.md5Regex),
+                sites: this.plugin?.settings?.searchSites.filter((x: searchSite) => x.enabled && x.hash)
+            }
         }
         const privateIps: ParsedIndicators = {
             title: "IPs (Private)",
@@ -114,7 +127,8 @@ export class IndicatorSidebar extends ItemView {
         this.iocs.push(ips);
         if (this.splitLocalIp) this.iocs.push(privateIps);
         this.iocs.push(domains);
-        this.iocs.push(hashes);
+        if (sha256Hashes) this.iocs.push(sha256Hashes);
+        if (md5Hashes) this.iocs.push(md5Hashes);
         this.iocs.push(ipv6)
         this.refangIocs();
         this.processExclusions();

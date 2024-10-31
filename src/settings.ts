@@ -6,11 +6,15 @@ import { defaultSites, type searchSite } from "./sites";
 import { DEFAULT_VIEW_TYPE } from "./iocLensView";
 
 export interface IocLensSettings extends CyberPluginSettings {
+    sha256Enabled: boolean,
+    md5Enabled: boolean
 }
 
 export const IOC_LENS_DEFAULT_SETTINGS: IocLensSettings = {
 	validTld: [],
-    searchSites: defaultSites
+    searchSites: defaultSites,
+    sha256Enabled: true,
+    md5Enabled: true,
 }
 
 export class IocLensSettingTab extends PluginSettingTab {
@@ -55,5 +59,26 @@ export class IocLensSettingTab extends PluginSettingTab {
                         })
                     );
         });
+        new Setting(containerEl)
+            .setName('Hash Types')
+            .setHeading();
+        new Setting(containerEl)
+            .setName('SHA256')
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.sha256Enabled)
+                .onChange(async (value) => {
+                    this.plugin.settings.sha256Enabled = value;
+                    await this.plugin.saveSettings();
+                })
+            );
+        new Setting(containerEl)
+            .setName('MD5')
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.md5Enabled)
+                .onChange(async (value) => {
+                    this.plugin.settings.md5Enabled = value;
+                    await this.plugin.saveSettings();
+                })
+            );
     }
 }
