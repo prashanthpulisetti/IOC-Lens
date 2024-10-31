@@ -5,7 +5,7 @@
     export let indicators: ParsedIndicators[];
 </script>
 
-<h4>Extracted Indicators</h4>
+<h4>IOC Lens</h4>
 {#each indicators as indicatorList}
     {#if indicatorList.items.length > 0}
         <IocList indicatorList={indicatorList}/>
