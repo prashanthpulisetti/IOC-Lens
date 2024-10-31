@@ -16,3 +16,11 @@
     {/each}
 </div>
 {/if}
+
+<style>
+    .tree-item-inner {
+        word-break: break-all;
+        text-wrap: wrap;
+        overflow: hidden;
+    }
+</style>
