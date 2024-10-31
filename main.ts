@@ -1,5 +1,5 @@
 import { WorkspaceLeaf } from 'obsidian';
-import { CyberPlugin } from 'obsidian-cyber-utils';
+import { CyberPlugin, getValidTld } from 'obsidian-cyber-utils';
 
 import { IOC_LENS_DEFAULT_SETTINGS, type IocLensSettings, IocLensSettingTab } from 'src/settings';
 import { DEFAULT_VIEW_TYPE, IndicatorSidebar } from 'src/iocLensView';
@@ -15,6 +15,11 @@ export default class IocLens extends CyberPlugin {
 
 	async onload() {
 		await this.loadSettings();
+		
+		// retrieve valid top-level domain identifiers from IANA
+		this.validTld = await getValidTld();
+		if (this.validTld) this.settings.validTld = this.validTld;
+		
 		this.registerView(DEFAULT_VIEW_TYPE, (leaf) => new IndicatorSidebar(leaf, this));
 
 		const ribbonIconEl = this.addRibbonIcon('scan-eye', 'Activate IOC Lens', (evt: MouseEvent) => {
