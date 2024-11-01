@@ -4,13 +4,13 @@
 
 IOCs are extracted from the active note into a sidebar view with quick pivots to security-focused resources. This is available in a convenient sidebar view within Obsidian.
 
-![demo](https://raw.githubusercontent.com/acgabbert/ioc-lens/main/resources/screenshots/usage-example.png)
+![demo](https://raw.githubusercontent.com/acgabbert/ioc-lens/master/resources/screenshots/usage-example.png)
 
 To activate IOC Lens, click the ribbon icon or use the command palette.
 
-![ribbon icon](https://raw.githubusercontent.com/acgabbert/ioc-lens/main/resources/screenshots/ribbon-icon.png)
+![ribbon icon](https://raw.githubusercontent.com/acgabbert/ioc-lens/master/resources/screenshots/ribbon-icon.png)
 
-![command palette](https://raw.githubusercontent.com/acgabbert/ioc-lens/main/resources/screenshots/command-palette.png)
+![command palette](https://raw.githubusercontent.com/acgabbert/ioc-lens/master/resources/screenshots/command-palette.png)
 
 IOC Lens currently supports the following IOC types for extraction:
 - IPv4
