@@ -57,3 +57,13 @@
     </div>
     {/if}
 </details>
+
+<style>
+    .sidebar-container {
+        user-select: text;
+        word-break: break-all;
+        white-space: normal;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
