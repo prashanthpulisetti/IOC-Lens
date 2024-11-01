@@ -10,9 +10,7 @@ import { defaultSites, type searchSite } from 'src/sites';
 
 
 export default class IocLens extends CyberPlugin {
-	settings: IocLensSettings;
-	validTld: string[] | null | undefined;
-	sidebarContainers: Map<string, WorkspaceLeaf> | undefined;
+	declare settings: IocLensSettings;
 
 	async onload() {
 		await this.loadSettings();
