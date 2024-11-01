@@ -6,6 +6,8 @@ export const SPUR_SEARCH = 'https://app.spur.us/context?q=%s';
 export const SHODAN_SEARCH = 'https://www.shodan.io/host/%s';
 export const CENSYS_SEARCH = 'https://search.censys.io/hosts/%s';
 export const DDG_SEARCH = 'https://duckduckgo.com/?q="%s"';
+export const BAZAAR_SEARCH_SHA256 = 'https://bazaar.abuse.ch/browse.php?search=sha256%3A%s';
+export const BAZAAR_SEARCH_MD5 = 'https://bazaar.abuse.ch/browse.php?search=md5%3A%s';
 
 export interface ParsedIndicators {
     title: string;
