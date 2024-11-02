@@ -27,7 +27,7 @@ export default class IocLens extends CyberPlugin {
 
 		this.addCommand({
 			id: 'activate-ioc-lens-view',
-			name: 'Activate IOC Lens',
+			name: 'Activate IOC View',
 			callback: () => {
 				this.activateView(DEFAULT_VIEW_TYPE);
 			}
