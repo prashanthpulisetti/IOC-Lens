@@ -8,7 +8,7 @@
 
     function helpButton() {
         const helpModal = new Modal(app);
-        helpModal.setTitle("IOC Lens");
+        helpModal.setTitle("ⓘ IOC Lens Help");
         helpModal.setContent(`Configure which search pivot buttons appear in the "IOC Lens" settings tab.`);
         helpModal.open();
     }
@@ -33,6 +33,6 @@
         position: fixed;
         bottom: 2rem;
         right: 1rem;
-        scale: 0.7;
+        scale: 0.8;
     }
 </style>
