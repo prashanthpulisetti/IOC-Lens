@@ -31,11 +31,11 @@ export class IocLensSettingTab extends PluginSettingTab {
 		containerEl.empty();
         
 		new Setting(containerEl)
-            .setName('Enabled Search Engines')
+            .setName('Enabled search engines')
             .setHeading();
         defaultSites.forEach((site: searchSite) => {
-        		const settingSite = this.plugin.settings.searchSites.find(obj => obj.name === site.name);
-        		const enabled = settingSite?.enabled ?? site.enabled;
+                const settingSite = this.plugin.settings.searchSites.find(obj => obj.name === site.name);
+                const enabled = settingSite?.enabled ?? site.enabled;
                 let desc = site.description ? site.description : "";
                 const supported = [];
                 if (site.ip) supported.push('IP');
@@ -60,7 +60,7 @@ export class IocLensSettingTab extends PluginSettingTab {
                     );
         });
         new Setting(containerEl)
-            .setName('Hash Types')
+            .setName('Hash types')
             .setHeading();
         new Setting(containerEl)
             .setName('SHA256')
