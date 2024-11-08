@@ -1,4 +1,3 @@
-import { WorkspaceLeaf } from 'obsidian';
 import { CyberPlugin, getValidTld } from 'obsidian-cyber-utils';
 
 import { IOC_LENS_DEFAULT_SETTINGS, type IocLensSettings, IocLensSettingTab } from 'src/settings';
@@ -21,13 +20,13 @@ export default class IocLens extends CyberPlugin {
 		
 		this.registerView(DEFAULT_VIEW_TYPE, (leaf) => new IndicatorSidebar(leaf, this));
 
-		const ribbonIconEl = this.addRibbonIcon('scan-eye', 'Activate IOC Lens', (evt: MouseEvent) => {
+		this.addRibbonIcon('scan-eye', 'Activate IOC Lens', (evt: MouseEvent) => {
 			this.activateView(DEFAULT_VIEW_TYPE);
 		});
 
 		this.addCommand({
 			id: 'activate-ioc-lens-view',
-			name: 'Activate IOC View',
+			name: 'Activate IOC view',
 			callback: () => {
 				this.activateView(DEFAULT_VIEW_TYPE);
 			}
@@ -51,7 +50,6 @@ export default class IocLens extends CyberPlugin {
 	}
 
 	updateSites() {
-		const retval = [];
 		defaultSites.forEach(async (site: searchSite) => {
 			const settingSite = this.settings.searchSites.find(obj => obj.name === site.name);
 			const enabled = settingSite?.enabled ?? site.enabled;

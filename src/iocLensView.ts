@@ -38,7 +38,7 @@ export class IndicatorSidebar extends ItemView {
     }
 
     getDisplayText(): string {
-        return "Indicator Sidebar";
+        return "IOC Lens view";
     }
 
     registerActiveFileListener() {
@@ -141,14 +141,17 @@ export class IndicatorSidebar extends ItemView {
                     this.ipExclusions?.forEach(ip => {
                         if (indicatorList.items.includes(ip)) indicatorList.items.splice(indicatorList.items.indexOf(ip), 1);
                     });
+                    break;
                 case "Domains":
                     this.domainExclusions?.forEach(domain => {
                         if (indicatorList.items.includes(domain)) indicatorList.items.splice(indicatorList.items.indexOf(domain), 1);
                     });
+                    break;
                 case "Hashes":
                     this.hashExclusions?.forEach(hash => {
                         if (indicatorList.items.includes(hash)) indicatorList.items.splice(indicatorList.items.indexOf(hash), 1);
                     });
+                    break;
             }
         });
     }
