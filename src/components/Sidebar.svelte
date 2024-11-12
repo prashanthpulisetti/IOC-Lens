@@ -25,7 +25,7 @@
     {/each}
 {:else}
     <div class="empty-state">
-        No indicators found. IOC Lens will extract IP addresses, domains, and file hashes.
+        No indicators found. IOC Lens will extract IP addresses, domains, and file hashes from the active note.
     </div>
 {/if}
 <button
