@@ -166,16 +166,18 @@ export class IndicatorSidebar extends ItemView {
 
     async parseIndicators(file: TFile) {
         await this.getMatches(file);
-        if (!this.sidebar && this.iocs) {
+        if (!this.sidebar && this.iocs && this.plugin) {
             this.sidebar = new Sidebar({
                 target: this.contentEl,
                 props: {
-                    indicators: this.iocs
+                    indicators: this.iocs,
+                    app: this.plugin.app
                 }
             });
-        } else {
+        } else if (this.plugin) {
             this.sidebar?.$set({
-                indicators: this.iocs
+                indicators: this.iocs,
+                app: this.plugin.app
             });
         }
     }
