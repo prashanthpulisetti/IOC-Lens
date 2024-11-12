@@ -8,8 +8,8 @@
 
     function helpButton() {
         const helpModal = new Modal(app);
-        helpModal.setTitle("ⓘ IOC Lens Help");
-        helpModal.setContent(`Configure which search pivot buttons appear in the "IOC Lens" settings tab.`);
+        helpModal.setTitle("ⓘ IOC Lens help");
+        helpModal.setContent(`Configure which search pivot buttons appear in the "IOC Lens" tab of Obsidian's settings.`);
         helpModal.open();
     }
 </script>
