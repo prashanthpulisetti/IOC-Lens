@@ -1,6 +1,6 @@
 # IOC Lens
 
-**IOC Lens** is a note-taking helper for Obsidian focused on cyber security and incident response.
+[**IOC Lens**](https://gabbert.me/Projects/IOC+Lens) is a note-taking helper for Obsidian focused on cyber security and incident response.
 
 IOCs are extracted from the active note into a sidebar view with quick pivots to security-focused resources. This is available in a convenient sidebar view within Obsidian.
 
